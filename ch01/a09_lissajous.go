@@ -5,9 +5,10 @@ import (
 	"image/color"
 	"image/gif"
 	"io"
+	"log"
 	"math"
 	"math/rand"
-	"os"
+	"net/http"
 	"time"
 )
 
@@ -27,7 +28,15 @@ const (
 
 func main() {
 	rand.Seed(time.Now().UTC().UnixNano())
-	lissajous(os.Stdout)
+
+	// web 服务器显示 gif
+	handler := func(w http.ResponseWriter, r *http.Request) {
+		lissajous(w)
+	}
+	http.HandleFunc("/", handler)
+	log.Fatal(http.ListenAndServe("localhost:8000", nil))
+
+	// lissajous(os.Stdout)
 }
 
 func lissajous(out io.Writer) {
