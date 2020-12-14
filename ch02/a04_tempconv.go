@@ -25,6 +25,12 @@ func FToC(f Fahrenheit) Celsius {
 	return Celsius((f - 32) * 5 / 9)
 }
 
+// 声明一个 Celsius 类型的名称叫 String 的方法
+// 该方法返回该类型对象 c 带着温度单位的字符串
+func (c Celsius) String() string {
+	return fmt.Sprintf("%g°C", c)
+}
+
 func main() {
 	var c Celsius
 	var f Fahrenheit
@@ -32,4 +38,14 @@ func main() {
 	fmt.Println(f >= 0)
 	// fmt.Println(c == f) compile error: type mismatch
 	fmt.Println(c == Celsius(f))
+	fmt.Println()
+
+	c = FToC(212.0)
+	fmt.Println(c.String())
+	fmt.Printf("%v\n", c)
+	fmt.Printf("%s\n", c)
+	fmt.Println(c)
+	fmt.Printf("%g\n", c)
+	fmt.Println(float64(c))
+	fmt.Println()
 }
