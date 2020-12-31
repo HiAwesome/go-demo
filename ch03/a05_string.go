@@ -1,7 +1,9 @@
 package main
 
 import (
+	"bytes"
 	"fmt"
+	"strconv"
 	"strings"
 	"unicode/utf8"
 )
@@ -23,6 +25,65 @@ func main() {
 
 	f5()
 
+	f6()
+
+	f7()
+
+	f8()
+
+	f9()
+}
+
+func f9() {
+	x, err1 := strconv.Atoi("123")
+	fmt.Println(x, err1)
+
+	y, err2 := strconv.ParseInt("123", 10, 64)
+	fmt.Println(y, err2)
+	fmt.Println()
+}
+
+func f8() {
+	x := 123
+	y := fmt.Sprintf("%d", x)
+	fmt.Println(y, strconv.Itoa(x))
+	fmt.Println()
+
+	fmt.Println(strconv.FormatInt(int64(x), 2))
+	fmt.Println()
+
+	s := fmt.Sprintf("x=%b", x)
+	fmt.Println(s)
+	fmt.Println()
+}
+
+func f7() {
+	fmt.Println(intsToString([]int{1, 2, 3}))
+	fmt.Println(fmt.Sprint([]int{1, 2, 3}))
+	fmt.Println()
+}
+
+// intsToString is like fmt.Sprint(values) but adds commas.
+func intsToString(values []int) string {
+	var buf bytes.Buffer
+	buf.WriteByte('[')
+
+	for i, v := range values {
+		if i > 0 {
+			buf.WriteString(", ")
+		}
+		_, _ = fmt.Fprintf(&buf, "%d", v)
+	}
+	buf.WriteByte(']')
+	return buf.String()
+}
+
+func f6() {
+	s := "abc"
+	b := []byte(s)
+	s2 := string(b)
+	fmt.Println(s2)
+	fmt.Println()
 }
 
 // comma inserts commas in a non-negative decimal integer string.
