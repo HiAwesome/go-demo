@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"strings"
 	"unicode/utf8"
 )
 
@@ -27,24 +28,14 @@ func main() {
 
 }
 
-// 第一个版本，全部手工硬编码实现
+// 第二个版本，使用 strings.LastIndex 库函数
 // basename removes directory components and a .suffix.
 // e.g., a => a, a.go => a, a/b/c.go => c, a/b.c.go => b.c
 func basename(s string) string {
-	// discard last '/' and everything before.
-	for i := len(s) - 1; i >= 0; i-- {
-		if s[i] == '/' {
-			s = s[i+1:]
-			break
-		}
-	}
-
-	// preserve everything before last '.'.
-	for i := len(s) - 1; i >= 0; i-- {
-		if s[i] == '.' {
-			s = s[:i]
-			break
-		}
+	slash := strings.LastIndex(s, "/") // -1 if "/" not found
+	s = s[slash+1:]
+	if dot := strings.LastIndex(s, "."); dot >= 0 {
+		s = s[:dot]
 	}
 	return s
 }
