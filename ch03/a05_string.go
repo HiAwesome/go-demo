@@ -21,11 +21,24 @@ func main() {
 
 	f4()
 
+	f5()
+
+}
+
+// comma inserts commas in a non-negative decimal integer string.
+func comma(s string) string {
+	n := len(s)
+	if n <= 3 {
+		return s
+	}
+	return comma(s[:n-3]) + "," + s[n-3:]
+}
+
+func f5() {
 	fmt.Println(basename("a/b/c.go"))
 	fmt.Println(basename("c.d.go"))
 	fmt.Println(basename("abc"))
 	fmt.Println()
-
 }
 
 // 第二个版本，使用 strings.LastIndex 库函数
