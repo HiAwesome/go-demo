@@ -20,6 +20,33 @@ func main() {
 
 	f4()
 
+	fmt.Println(basename("a/b/c.go"))
+	fmt.Println(basename("c.d.go"))
+	fmt.Println(basename("abc"))
+	fmt.Println()
+
+}
+
+// 第一个版本，全部手工硬编码实现
+// basename removes directory components and a .suffix.
+// e.g., a => a, a.go => a, a/b/c.go => c, a/b.c.go => b.c
+func basename(s string) string {
+	// discard last '/' and everything before.
+	for i := len(s) - 1; i >= 0; i-- {
+		if s[i] == '/' {
+			s = s[i+1:]
+			break
+		}
+	}
+
+	// preserve everything before last '.'.
+	for i := len(s) - 1; i >= 0; i-- {
+		if s[i] == '.' {
+			s = s[:i]
+			break
+		}
+	}
+	return s
 }
 
 func f4() {
