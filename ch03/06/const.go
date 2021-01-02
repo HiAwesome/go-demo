@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"net"
+	"time"
 )
 
 /**
@@ -29,4 +30,29 @@ func parseIpv4(s string) net.IP {
 
 func main() {
 
+	f1()
+
+	f2()
+
+}
+
+func f2() {
+	const (
+		a = 1
+		b
+		c = 2
+		d
+	)
+
+	fmt.Println(a, b, c, d)
+	fmt.Println()
+}
+
+func f1() {
+	const noDelay time.Duration = 0
+	const timeout = 5 * time.Minute
+	fmt.Printf("%T %[1]v\n", noDelay)
+	fmt.Printf("%T %[1]v\n", timeout)
+	fmt.Printf("%T %[1]v\n", time.Minute)
+	fmt.Println()
 }
