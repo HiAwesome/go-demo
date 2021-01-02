@@ -34,6 +34,78 @@ func main() {
 
 	f2()
 
+	f3()
+
+	f4()
+
+	f5()
+
+	f6()
+
+}
+
+func f6() {
+	fmt.Printf("%T\n", 0)
+	fmt.Printf("%T\n", 0.0)
+	fmt.Printf("%T\n", 0i)
+	fmt.Printf("%T\n", '\000')
+	fmt.Println()
+}
+
+func f5() {
+	var f float64 = 212
+	// "100", (f - 32) * 5 is a float64
+	fmt.Println((f - 32) * 5 / 9)
+	// "0"; 5/9 is an untyped integer, 0
+	fmt.Println(5 / 9 * (f - 32))
+	// "100"; 5.0/9.0 is an untyped float
+	fmt.Println(5.0 / 9.0 * (f - 32))
+	fmt.Println()
+}
+
+func f4() {
+	const (
+		_ = 1 << (10 * iota)
+		KiB
+		MiB
+		GiB
+		TiB
+		PiB
+		EiB
+		ZiB
+		YiB
+	)
+
+	fmt.Println(KiB, MiB, GiB, TiB)
+	fmt.Println(PiB, EiB, float64(ZiB), float64(YiB))
+	fmt.Println()
+}
+
+func f3() {
+	var v = net.FlagMulticast | net.FlagUp
+	fmt.Printf("%b %t\n", v, IsUp(v))
+	TurnDown(&v)
+	fmt.Printf("%b %t\n", v, IsUp(v))
+	SetBroadcast(&v)
+	fmt.Printf("%b %t\n", v, IsUp(v))
+	fmt.Printf("%b %t\n", v, IsCast(v))
+	fmt.Println()
+}
+
+func IsUp(v net.Flags) bool {
+	return v&net.FlagUp == net.FlagUp
+}
+
+func TurnDown(v *net.Flags) {
+	*v &^= net.FlagUp
+}
+
+func SetBroadcast(v *net.Flags) {
+	*v |= net.FlagBroadcast
+}
+
+func IsCast(v net.Flags) bool {
+	return v&(net.FlagBroadcast|net.FlagMulticast) != 0
 }
 
 func f2() {
