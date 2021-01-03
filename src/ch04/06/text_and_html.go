@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"html/template"
 	"log"
+	"moqi.com/go/ch04/05/github"
+	"os"
 	"time"
 )
 
@@ -29,7 +31,26 @@ func main() {
 
 	f1()
 
-	/*result, err := github.SearchIssues(os.Args[1:])
+	f2()
+
+}
+
+// ~/Code/go-demo/src/ch04/06(main ✗) go run text_and_html.go repo:golang/go is:open json decoder
+// &{<nil> 0xc000026480 0xc000146200 0xc000012230}
+//
+// 54 issues:
+// ----------------------------------------
+// Number: 42571
+// User:   dsnet
+// Title:  encoding/json: clarify Decoder.InputOffset semantics
+// Age:    51 days
+// ----------------------------------------
+// Number: 33416
+// User:   bserdar
+// Title:  encoding/json: This CL adds Decoder.InternKeys
+// Age:    520 days
+func f2() {
+	result, err := github.SearchIssues(os.Args[1:])
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -37,7 +58,6 @@ func main() {
 	if err := report.Execute(os.Stdout, result); err != nil {
 		log.Fatal(err)
 	}
-	*/
 }
 
 func f1() {
