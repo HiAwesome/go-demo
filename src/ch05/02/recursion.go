@@ -9,8 +9,8 @@ import (
 /**
  * 递归
  *
- * 在 src 下运行
- * ~/Code/go-demo/src(main ✗) ./fetch https://golang.org | ./recursion
+ * 使用 go build 完成之后将可执行文件放在 shell 下，然后在 shell 下运行
+ * ~/Code/go-demo/shell(main ✗) ./fetch https://golang.org | ./recursion
  * https://support.eji.org/give/153413/#!/donation/checkout
  * /
  * /doc/
