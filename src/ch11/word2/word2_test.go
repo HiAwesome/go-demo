@@ -1,6 +1,7 @@
 package word2
 
 import (
+	"fmt"
 	"math/rand"
 	"testing"
 	"time"
@@ -60,4 +61,27 @@ func TestRandomPalindromes(t *testing.T) {
 			t.Errorf("ISPalindrome(%q) = false", p)
 		}
 	}
+}
+
+// 基准测试
+// go test -bench=.
+// 和普通测试不同的是，默认情况下不运行任何基准测试。
+// 我们通过 -bench 命令行标志参数手工指定要运行的基准测试函数
+// 该参数是一个正则表达式，用于匹配要执行的基准测试函数的名字，默认值是空的
+// 其中 . 模式可以匹配所有基准测试函数，因为这里只有一个基准测试函数
+// 因此和 -bench=IsPalindrome 参数是等价的效果
+//
+// 快的程序往往是伴随较少的内存分配。 -benchmem 命令行标志参数将在报告中包含内存的分配数据统计
+// 用一次内存分配代替多次内存分配节省了 75% 的分配调用次数和将近一半的内存需求
+func BenchmarkIsPalindrome(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		IsPalindrome("A man, a plan, a canal: Panama")
+	}
+}
+
+// 示例函数
+// 三个用处：作为文档、测试时自身运行、提供一个真实的演练场
+func ExampleIsPalindrome() {
+	fmt.Println(IsPalindrome("A man, a plan, a canal: Panama"))
+	fmt.Println(IsPalindrome("palindrome"))
 }
