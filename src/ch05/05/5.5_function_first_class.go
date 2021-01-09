@@ -7,6 +7,7 @@ import (
 
 /**
  * 函数值在 Go 中是一等公民
+ * 头等函数 wiki: https://zh.wikipedia.org/wiki/%E5%A4%B4%E7%AD%89%E5%87%BD%E6%95%B0
  *
  * @author moqi
  * On 2021/1/9 19:42:34
