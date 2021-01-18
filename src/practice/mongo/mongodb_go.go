@@ -44,10 +44,7 @@ func main() {
 		panic(err)
 	}
 	defer session.EndSession(context.Background())
-	err = mongo.WithSession(context.Background(), session, func(sessionContext mongo.SessionContext) error {
-		if err = session.StartTransaction(txnOpts); err != nil {
-			return err
-		}
+	callback := func(sessionContext mongo.SessionContext) (interface{}, error) {
 		result, err := episodesCollection.InsertOne(
 			sessionContext,
 			Episode{
@@ -56,34 +53,32 @@ func main() {
 			},
 		)
 
+		// 模拟第一次执行后失败
+		// return nil, errors.New("insert first record not success")
+
 		if err != nil {
-			return err
+			return nil, err
 		}
 
-		fmt.Println(result.InsertedID)
+		fmt.Println("the first record id: ", result.InsertedID)
+
 		result, err = episodesCollection.InsertOne(
 			sessionContext,
 			Episode{
 				Title:    "Transactions for All",
-				Duration: 1,
+				Duration: 2,
 			},
 		)
 
 		if err != nil {
-			return err
+			return nil, err
 		}
 
-		if err = session.CommitTransaction(sessionContext); err != nil {
-			return err
-		}
-
-		fmt.Println(result.InsertedID)
-		return nil
-	})
+		fmt.Println("the second record id: ", result.InsertedID)
+		return result, err
+	}
+	_, err = session.WithTransaction(context.Background(), callback, txnOpts)
 	if err != nil {
-		if abortErr := session.AbortTransaction(context.Background()); abortErr != nil {
-			panic(abortErr)
-		}
 		panic(err)
 	}
 }
