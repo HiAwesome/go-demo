@@ -81,7 +81,13 @@ func BenchmarkIsPalindrome(b *testing.B) {
 
 // 示例函数
 // 三个用处：作为文档、测试时自身运行、提供一个真实的演练场
+// 具体参考 https://blog.golang.org/examples
+// 所以 Example 一般需要写上 Output 语句
+// 典型的例外的情况是代码需要访问网络、或者 map 无法保证输出顺序时，不写 Output 语句
 func ExampleIsPalindrome() {
 	fmt.Println(IsPalindrome("A man, a plan, a canal: Panama"))
 	fmt.Println(IsPalindrome("palindrome"))
+	// Output:
+	// true
+	// false
 }
