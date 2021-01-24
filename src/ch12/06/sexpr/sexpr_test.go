@@ -5,6 +5,7 @@ package sexpr
 
 import (
 	sexpr04 "moqi.com/go/ch12/04/sexpr"
+	"reflect"
 	"testing"
 )
 
@@ -42,4 +43,9 @@ func Test(t *testing.T) {
 		t.Fatalf("unmarshal failed: %v", err)
 	}
 	t.Logf("Unmarshal() = %+v\n", movie)
+
+	// Check equality.
+	if !reflect.DeepEqual(movie, strangelove) {
+		t.Fatal("not equal")
+	}
 }

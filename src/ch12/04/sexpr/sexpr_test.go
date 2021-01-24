@@ -3,7 +3,9 @@
 // On 2021/1/24 20:36:32
 package sexpr
 
-import "testing"
+import (
+	"testing"
+)
 
 func Test(t *testing.T) {
 	type Movie struct {
@@ -39,4 +41,10 @@ func Test(t *testing.T) {
 	}
 	t.Logf("Marshal() = %s\n", data)
 
+	// Pretty-print it:
+	data, err = MarshalIndent(strangelove)
+	if err != nil {
+		t.Fatal(err)
+	}
+	t.Logf("MarshalIdent() = %s\n", data)
 }
